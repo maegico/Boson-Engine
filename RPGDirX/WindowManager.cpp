@@ -56,7 +56,7 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 	//the default mouse image
 	wndClassX.hCursor = LoadCursor(NULL, IDC_ARROW);
 	//the name of the window
-	wndClassX.lpszClassName = L"DirXEngine";
+	wndClassX.lpszClassName = L"Boson Engine";
 
 	if (!RegisterClassEx(&wndClassX))
 	{
@@ -66,8 +66,8 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 	}
 
 	m_HWnd = CreateWindowEx(NULL,
-		L"DirXEngine",	//name of window class
-		L"DirXEngine",	//title of window
+		L"Boson Engine",	//name of window class, must be the same as in wndClassX
+		L"Boson Engine",	//title of window
 		WS_OVERLAPPEDWINDOW,	//window style
 		m_PosX,	//x position of window
 		m_PosY,	//y position of window
