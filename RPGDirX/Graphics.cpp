@@ -5,9 +5,6 @@ Graphics::Graphics()
 {
 }
 
-Graphics::Graphics(const Graphics& graphicsCopy)
-{
-}
 
 Graphics::~Graphics()
 {

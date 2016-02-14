@@ -5,10 +5,6 @@ WindowManager::WindowManager()
 {
 }
 
-WindowManager::WindowManager(const WindowManager& windowManagerCopy)
-{
-}
-
 WindowManager::~WindowManager()
 {
 	if (m_Graphics)
@@ -62,7 +58,12 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 	//the name of the window
 	wndClassX.lpszClassName = L"DirXEngine";
 
-	RegisterClassEx(&wndClassX);
+	if (!RegisterClassEx(&wndClassX))
+	{
+		MessageBox(0, L"RegisterClass Failed", 0, 0);
+		//would have a return false here
+		//think about changing engine structure
+	}
 
 	m_HWnd = CreateWindowEx(NULL,
 		L"DirXEngine",	//name of window class
@@ -76,6 +77,13 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 		NULL,	//menus
 		hInstance,	//application handle
 		NULL);	//multiple windows
+
+	if (!m_HWnd)
+	{
+		MessageBox(0, L"CreateWindow Failed.", 0, 0);
+		//would have a return false here
+		//think about changing engine structure
+	}
 
 	ShowWindow(m_HWnd, nCmdShow);
 }

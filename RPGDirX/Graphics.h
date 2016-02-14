@@ -1,5 +1,5 @@
-#ifndef _GRAPHICS_H_
-#define _GRAPHICS_H_
+#ifndef _GRAPHICS_H
+#define _GRAPHICS_H
 
 //direct3D 11 header file
 #include <D3D11.h>
@@ -17,7 +17,6 @@ class Graphics
 {
 public:
 	Graphics();
-	Graphics(const Graphics& graphicsCopy);
 	~Graphics();
 
 	//sets up and initializes Direct3D

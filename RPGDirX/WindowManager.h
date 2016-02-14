@@ -1,5 +1,5 @@
-#ifndef _WINDOW_MANAGER_H_
-#define _WINDOW_MANAGER_H_
+#ifndef _WINDOW_MANAGER_H
+#define _WINDOW_MANAGER_H
 
 #define WIN32_LEAN_AND_MEAN
 
@@ -13,7 +13,6 @@ class WindowManager
 {
 public:
 	WindowManager();
-	WindowManager(const WindowManager& windowManagerCopy);
 	~WindowManager();
 
 	bool Init(HINSTANCE hInstance, int nCmdShow);
