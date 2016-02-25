@@ -11,10 +11,20 @@ Graphics::~Graphics()
 	//switch to windowed mode
 	m_SwapChain->SetFullscreenState(FALSE, NULL);
 
-	m_SwapChain->Release();
+	/*m_SwapChain->Release();
 	m_BackBuffer->Release();
 	m_Dev->Release();
-	m_DevCon->Release();
+	m_DevCon->Release();*/
+
+	RELEASEMACRO(m_SwapChain);
+	RELEASEMACRO(m_BackBuffer);
+
+	//Restore default device settings
+	if (m_DevCon)
+		m_DevCon->ClearState();
+
+	RELEASEMACRO(m_DevCon);
+	RELEASEMACRO(m_Dev);
 }
 
 bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
@@ -46,7 +56,7 @@ bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 	//to use windowed mode
 	scd.Windowed = true;
 	//allows fullscreen switching using Alt + Enter
-	scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+	//scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 	//method(lets machine decide graphics adapter, use hardware or software
 		//used to set software code, flags,feature levels list, number in feature levels list,

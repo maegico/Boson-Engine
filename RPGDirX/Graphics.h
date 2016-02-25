@@ -8,6 +8,8 @@
 //allows use of pragma comment below
 #include <D3DX10.h>
 
+#define RELEASEMACRO(x) { if(x) { x->Release(); x = 0; } }
+
 //include the library files
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "D3DX11.lib")
