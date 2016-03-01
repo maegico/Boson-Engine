@@ -63,7 +63,8 @@ bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 		//SDK version, double pointer to swap chain description,
 		//double pointer to swap chain, double pointer to device,
 		//pointer to feature level var, double pointer to device context)
-	result = D3D11CreateDeviceAndSwapChain(NULL,
+	result = D3D11CreateDeviceAndSwapChain(
+		NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
 		NULL,
