@@ -21,6 +21,8 @@ public:
 	Graphics();
 	~Graphics();
 
+	ID3D11Device* getDevicePtr();
+
 	//sets up and initializes Direct3D
 	bool InitD3D(HWND hWnd, int screenWidth, int screenHeight);
 	void RenderFrame();

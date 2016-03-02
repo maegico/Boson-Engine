@@ -27,6 +27,11 @@ Graphics::~Graphics()
 	RELEASEMACRO(m_Dev);
 }
 
+ID3D11Device* Graphics::getDevicePtr()
+{
+	return m_Dev;
+}
+
 bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 {
 	bool result;
