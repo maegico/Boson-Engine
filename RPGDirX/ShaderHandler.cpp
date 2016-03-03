@@ -10,7 +10,7 @@ ShaderHandler::~ShaderHandler()
 {
 }
 
-int ShaderHandler::LoadShader(ID3D11Device* device, ShaderType type, std::string& filename,
+/*int ShaderHandler::LoadShader(ID3D11Device* device, ShaderType type, std::string& filename,
 	std::string& function, std::string& model)
 {
 	HRESULT result = S_OK;
@@ -44,12 +44,12 @@ int ShaderHandler::LoadShader(ID3D11Device* device, ShaderType type, std::string
 		}
 	}
 
-	/*result = device->CreateVertexShader(compiledShaderBlob->GetBufferPointer(),
+	result = device->CreateVertexShader(compiledShaderBlob->GetBufferPointer(),
 										compiledShaderBlob->GetBufferSize(),
 										NULL,
-										&vertexShader);*/
+										&vertexShader);
 	return 0;
-}
+}*/
 
 //http://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
 //going to go through this more indepth

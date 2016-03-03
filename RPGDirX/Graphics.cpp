@@ -123,3 +123,30 @@ void Graphics::RenderFrame()
 	//switch the back buffer and the front buffer
 	m_SwapChain->Present(0, 0);
 }
+
+bool Graphics::loadShader(ShaderInfo shaderInfo)
+{
+	LShaderInfo lShaderInfo = shaderInfoToLShaderInfo(shaderInfo);
+
+	HRESULT result = S_OK;
+
+	ID3DBlob* compiledShaderBlob = NULL;
+	ID3DBlob* errorMessagesBlob = NULL;
+
+	//use D3DCompile()
+	/*if (FAILED(result = D3DX11CompileFromFile(lShaderInfo.name,
+		0,
+		0,
+		lShaderInfo.shaderType,
+		lShaderInfo.shaderVersion,
+		0,
+		0,
+		0,
+		compiledShaderBlob,
+		0,
+		0));*/
+
+	//shader reflection code here
+}
+//http://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
+//going to go through this more indepth

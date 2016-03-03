@@ -7,6 +7,8 @@
 #include <D3DX11.h>
 //allows use of pragma comment below
 #include <D3DX10.h>
+#include <string>
+#include "ShaderHandlerR.h"
 
 #define RELEASEMACRO(x) { if(x) { x->Release(); x = 0; } }
 
@@ -43,14 +45,8 @@ private:
 	ID3D11DeviceContext* m_DevCon;
 	//a pointer to the render target
 	ID3D11RenderTargetView* m_BackBuffer;
-	//why is a texture the depth stencil buffer
-	ID3D11Texture2D* m_DepthStencilBuffer;
-	ID3D11DepthStencilState* m_DepthStencilState;
-	ID3D11DepthStencilView* m_DepthStencilView;
-	ID3D11RasterizerState* m_rasterState;
-	D3DXMATRIX m_projectionMatrix;
-	D3DXMATRIX m_worldMatrix;
-	D3DXMATRIX m_orthoMatrix;
+
+	bool loadShader(ShaderInfo shaderInfo);
 };
 
 #endif

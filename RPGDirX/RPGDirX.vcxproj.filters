@@ -47,10 +47,13 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vertex.h">
+    <ClInclude Include="ShaderHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderHandler.h">
+    <ClInclude Include="MathR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderHandlerR.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

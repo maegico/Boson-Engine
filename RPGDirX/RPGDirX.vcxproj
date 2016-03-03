@@ -92,7 +92,8 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="ShaderHandler.h" />
-    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="MathR.h" />
+    <ClInclude Include="ShaderHandlerR.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

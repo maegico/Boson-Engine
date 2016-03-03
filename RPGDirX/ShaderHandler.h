@@ -16,8 +16,8 @@ typedef int ShaderType;
 class ShaderHandler
 {
 public:
-	int LoadShader(ID3D11Device* device, ShaderType type, std::string& filename,
-		std::string& function, std::string& model);
+	/*int LoadShader(ID3D11Device* device, ShaderType type, std::string& filename,
+		std::string& function, std::string& model);*/
 	std::wstring convertStrToWSTR(const std::string& s);
 	ShaderHandler();
 	~ShaderHandler();
