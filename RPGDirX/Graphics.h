@@ -7,6 +7,7 @@
 #include <D3DX11.h>
 //allows use of pragma comment below
 #include <D3DX10.h>
+#include <d3dcompiler.h>
 #include <string>
 #include "ShaderHandlerR.h"
 
@@ -46,7 +47,8 @@ private:
 	//a pointer to the render target
 	ID3D11RenderTargetView* m_BackBuffer;
 
-	bool loadShader(ShaderInfo shaderInfo);
+	//bool loadShader(ShaderInfo shaderInfo);
+	bool compileShader(ShaderInfo* shader);
 };
 
 #endif

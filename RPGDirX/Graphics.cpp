@@ -124,14 +124,29 @@ void Graphics::RenderFrame()
 	m_SwapChain->Present(0, 0);
 }
 
-bool Graphics::loadShader(ShaderInfo shaderInfo)
+bool Graphics::compileShader(ShaderInfo* shader)
 {
-	LShaderInfo lShaderInfo = shaderInfoToLShaderInfo(shaderInfo);
-
 	HRESULT result = S_OK;
 
 	ID3DBlob* compiledShaderBlob = NULL;
 	ID3DBlob* errorMessagesBlob = NULL;
+	
+	const char* loadedFile = loadTextFile(shader->file);
+
+	//if something happens and it doesn't read in the file
+	if (loadedFile == NULL)
+	{
+		//write the problem to the console and return 0
+		printf("PROBLEM: Loaded File returned NULL\n");
+		return false;
+	}
+
+	D3DCompile((LPCVOID)loadedFile, strlen(loadedFile), NULL, NULL, NULL,
+		shader->shaderType, shader->shaderVersion, NULL, NULL,
+		&compiledShaderBlob, &errorMessagesBlob);
+
+	return true;
+}
 
 	//use D3DCompile()
 	/*if (FAILED(result = D3DX11CompileFromFile(lShaderInfo.name,
@@ -147,6 +162,5 @@ bool Graphics::loadShader(ShaderInfo shaderInfo)
 		0));*/
 
 	//shader reflection code here
-}
 //http://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
 //going to go through this more indepth
