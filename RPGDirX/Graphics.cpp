@@ -11,11 +11,6 @@ Graphics::~Graphics()
 	//switch to windowed mode
 	m_SwapChain->SetFullscreenState(FALSE, NULL);
 
-	/*m_SwapChain->Release();
-	m_BackBuffer->Release();
-	m_Dev->Release();
-	m_DevCon->Release();*/
-
 	RELEASEMACRO(m_SwapChain);
 	RELEASEMACRO(m_BackBuffer);
 
@@ -116,7 +111,8 @@ bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 void Graphics::RenderFrame()
 {
 	//clear the back buffer to a blue
-	m_DevCon->ClearRenderTargetView(m_BackBuffer, D3DXCOLOR(0.0f, 0.2f, 0.4f, 1.0f));
+	const FLOAT backColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
+	m_DevCon->ClearRenderTargetView(m_BackBuffer, backColor);
 
 	//do 3D rendering here
 
@@ -141,26 +137,23 @@ bool Graphics::compileShader(ShaderInfo* shader)
 		return false;
 	}
 
-	D3DCompile((LPCVOID)loadedFile, strlen(loadedFile), NULL, NULL, NULL,
-		shader->shaderType, shader->shaderVersion, NULL, NULL,
-		&compiledShaderBlob, &errorMessagesBlob);
+	//might have to do strlen()+1
+	if ( FAILED( result = D3DCompile(
+		(LPCVOID)loadedFile,
+		strlen(loadedFile),
+		NULL,
+		NULL,
+		NULL,
+		shader->shaderType,
+		shader->shaderVersion,
+		NULL,
+		NULL,
+		&compiledShaderBlob,
+		&errorMessagesBlob ) ) )
+		return false;
 
 	return true;
 }
 
-	//use D3DCompile()
-	/*if (FAILED(result = D3DX11CompileFromFile(lShaderInfo.name,
-		0,
-		0,
-		lShaderInfo.shaderType,
-		lShaderInfo.shaderVersion,
-		0,
-		0,
-		0,
-		compiledShaderBlob,
-		0,
-		0));*/
-
-	//shader reflection code here
 //http://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
 //going to go through this more indepth

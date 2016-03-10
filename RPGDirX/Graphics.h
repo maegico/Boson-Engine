@@ -4,19 +4,19 @@
 //direct3D 11 header file
 #include <D3D11.h>
 //direct3D file extensions header
-#include <D3DX11.h>
+//#include <D3DX11.h>
 //allows use of pragma comment below
-#include <D3DX10.h>
+//#include <D3DX10.h>
 #include <d3dcompiler.h>
 #include <string>
-#include "ShaderHandlerR.h"
+#include "ShaderHandler.h"
 
 #define RELEASEMACRO(x) { if(x) { x->Release(); x = 0; } }
 
 //include the library files
 #pragma comment(lib, "D3D11.lib")
 #pragma comment(lib, "D3DX11.lib")
-#pragma comment(lib, "D3DX10.lib")
+#pragma comment(lib, "D3dcompiler.lib")
 
 class Graphics
 {
