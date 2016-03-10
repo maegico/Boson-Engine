@@ -152,6 +152,12 @@ bool Graphics::compileShader(ShaderInfo* shader)
 		&errorMessagesBlob ) ) )
 		return false;
 
+	//shader reflection code below
+
+	ID3D11ShaderReflection* shaderReflection = nullptr;
+	if(FAILED(result = D3DReflect(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**)&shaderReflection)));
+
+
 	return true;
 }
 

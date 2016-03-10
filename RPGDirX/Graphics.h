@@ -1,12 +1,9 @@
 #ifndef _GRAPHICS_H
 #define _GRAPHICS_H
 
-//direct3D 11 header file
+//Will need to download the Windows Standalone SDK for Windows 10
+
 #include <D3D11.h>
-//direct3D file extensions header
-//#include <D3DX11.h>
-//allows use of pragma comment below
-//#include <D3DX10.h>
 #include <d3dcompiler.h>
 #include <string>
 #include "ShaderHandler.h"
