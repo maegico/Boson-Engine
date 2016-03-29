@@ -20,11 +20,11 @@ public:
 
 private:
 	//leaving these as variables so that they can be changed
-	int m_ScreenWidth, m_ScreenHeight;
-	int m_PosX, m_PosY;
+	int mScreenWidth, mScreenHeight;
+	int mPosX, mPosY;
 	//handle for window
-	HWND m_HWnd;
-	Graphics* m_Graphics;
+	HWND mHWnd;
+	Graphics* mGraphics;
 
 	//not sure if I should make this return something in case of failure to create a window
 	//also might change this since I am dealing with global variables

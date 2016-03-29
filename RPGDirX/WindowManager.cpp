@@ -7,25 +7,25 @@ WindowManager::WindowManager()
 
 WindowManager::~WindowManager()
 {
-	if (m_Graphics)
-		delete m_Graphics;
+	if (mGraphics)
+		delete mGraphics;
 }
 
 bool WindowManager::Init(HINSTANCE hInstance, int nCmdShow)
 {
 	//bool result;
 	
-	m_ScreenWidth = 0;
-	m_ScreenHeight = 0;
+	mScreenWidth = 0;
+	mScreenHeight = 0;
 
 	InitPriv(hInstance, nCmdShow);
 
-	m_Graphics = new Graphics();
-	if (!m_Graphics)
+	mGraphics = new Graphics();
+	if (!mGraphics)
 		return false;
 
-	//result = m_Graphics->InitD3D(m_HWnd, m_ScreenWidth, m_ScreenHeight);
-	if (!m_Graphics->InitD3D(m_HWnd, m_ScreenWidth, m_ScreenHeight))
+	//result = mGraphics->InitD3D(mHWnd, mScreenWidth, mScreenHeight);
+	if (!mGraphics->InitD3D(mHWnd, mScreenWidth, mScreenHeight))
 		return false;
 
 	return true;
@@ -33,11 +33,11 @@ bool WindowManager::Init(HINSTANCE hInstance, int nCmdShow)
 
 void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 {
-	m_ScreenWidth = 800;
-	m_ScreenHeight = 600;
+	mScreenWidth = 800;
+	mScreenHeight = 600;
 
-	m_PosX = (GetSystemMetrics(SM_CXSCREEN) - m_ScreenWidth) / 2;
-	m_PosY = (GetSystemMetrics(SM_CYSCREEN) - m_ScreenHeight) / 2;
+	mPosX = (GetSystemMetrics(SM_CXSCREEN) - mScreenWidth) / 2;
+	mPosY = (GetSystemMetrics(SM_CYSCREEN) - mScreenHeight) / 2;
 
 	//struct with info for window class (extension of WNDCLASS)
 	WNDCLASSEX wndClassX;
@@ -65,15 +65,15 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 		//think about changing engine structure
 	}
 
-	RECT r = { 0, 0, m_ScreenWidth, m_ScreenHeight };
+	RECT r = { 0, 0, mScreenWidth, mScreenHeight };
 	AdjustWindowRect(&r, WS_OVERLAPPEDWINDOW, false);
 
-	m_HWnd = CreateWindowEx(NULL,
+	mHWnd = CreateWindowEx(NULL,
 		L"Boson Engine",	//name of window class, must be the same as in wndClassX
 		L"Boson Engine",	//title of window
 		WS_OVERLAPPEDWINDOW,	//window style
-		m_PosX,	//x position of window
-		m_PosY,	//y position of window
+		mPosX,	//x position of window
+		mPosY,	//y position of window
 		r.right - r.left,	//width of window
 		r.bottom - r.top,	//height of window
 		NULL,	//parent window
@@ -81,14 +81,14 @@ void WindowManager::InitPriv(HINSTANCE hInstance, int nCmdShow)
 		hInstance,	//application handle
 		NULL);	//multiple windows
 
-	if (!m_HWnd)
+	if (!mHWnd)
 	{
 		MessageBox(0, L"CreateWindow Failed.", 0, 0);
 		//would have a return false here
 		//think about changing engine structure
 	}
 
-	ShowWindow(m_HWnd, nCmdShow);
+	ShowWindow(mHWnd, nCmdShow);
 }
 
 void WindowManager::Run()
@@ -124,7 +124,7 @@ void WindowManager::Run()
 
 void WindowManager::FrameProcess()
 {
-	m_Graphics->RenderFrame();
+	mGraphics->RenderFrame();
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)

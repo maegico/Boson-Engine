@@ -9,22 +9,22 @@ Graphics::Graphics()
 Graphics::~Graphics()
 {
 	//switch to windowed mode
-	m_SwapChain->SetFullscreenState(FALSE, NULL);
+	mSwapChain->SetFullscreenState(FALSE, NULL);
 
-	RELEASEMACRO(m_SwapChain);
-	RELEASEMACRO(m_BackBuffer);
+	RELEASEMACRO(mSwapChain);
+	RELEASEMACRO(mBackBuffer);
 
 	//Restore default device settings
-	if (m_DevCon)
-		m_DevCon->ClearState();
+	if (mDevCon)
+		mDevCon->ClearState();
 
-	RELEASEMACRO(m_DevCon);
-	RELEASEMACRO(m_Dev);
+	RELEASEMACRO(mDevCon);
+	RELEASEMACRO(mDev);
 }
 
 ID3D11Device* Graphics::getDevicePtr()
 {
-	return m_Dev;
+	return mDev;
 }
 
 bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
@@ -72,27 +72,29 @@ bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 		NULL,
 		D3D11_SDK_VERSION,
 		&scd,
-		&m_SwapChain,
-		&m_Dev,
+		&mSwapChain,
+		&mDev,
 		NULL,
-		&m_DevCon);
+		&mDevCon);
 
+#ifdef DEBUG
 	if (FAILED(result))
 		return false;
+#endif
 
 	
 	//Set the render target
 
 	//create a texture using the back buffer
 	ID3D11Texture2D* texture2D;
-	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&texture2D);
+	mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&texture2D);
 
 	//create a render target object (backBuffer)
-	m_Dev->CreateRenderTargetView(texture2D, NULL, &m_BackBuffer);
+	mDev->CreateRenderTargetView(texture2D, NULL, &mBackBuffer);
 	texture2D->Release();
 
 	//sets the render target as the back buffer
-	m_DevCon->OMSetRenderTargets(1, &m_BackBuffer, NULL);
+	mDevCon->OMSetRenderTargets(1, &mBackBuffer, NULL);
 
 	//Set the viewport
 	D3D11_VIEWPORT viewport;
@@ -103,7 +105,7 @@ bool Graphics::InitD3D(HWND hWnd, int screenWidth, int screenHeight)
 	viewport.Width = screenWidth;
 	viewport.Height = screenHeight;
 
-	m_DevCon->RSSetViewports(1, &viewport);
+	mDevCon->RSSetViewports(1, &viewport);
 	
 	return true;
 }
@@ -112,16 +114,24 @@ void Graphics::RenderFrame()
 {
 	//clear the back buffer to a blue
 	const FLOAT backColor[] = { 0.0f, 0.2f, 0.4f, 1.0f };
-	m_DevCon->ClearRenderTargetView(m_BackBuffer, backColor);
+	mDevCon->ClearRenderTargetView(mBackBuffer, backColor);
 
 	//do 3D rendering here
 
 	//switch the back buffer and the front buffer
-	m_SwapChain->Present(0, 0);
+	mSwapChain->Present(0, 0);
 }
 
 bool Graphics::compileShader(ShaderInfo* shader)
 {
+#ifdef DEBUG
+	if (shader == NULL)
+	{
+		printf("PROBLEM: ShaderInfo struct = nullpointer\n");
+		return false;
+	}
+#endif
+
 	HRESULT result = S_OK;
 
 	ID3DBlob* compiledShaderBlob = NULL;
@@ -129,6 +139,7 @@ bool Graphics::compileShader(ShaderInfo* shader)
 	
 	const char* loadedFile = loadTextFile(shader->file);
 
+#ifdef DEBUG
 	//if something happens and it doesn't read in the file
 	if (loadedFile == NULL)
 	{
@@ -136,9 +147,10 @@ bool Graphics::compileShader(ShaderInfo* shader)
 		printf("PROBLEM: Loaded File returned NULL\n");
 		return false;
 	}
+#endif
 
 	//might have to do strlen()+1
-	if ( FAILED( result = D3DCompile(
+	result = D3DCompile(
 		(LPCVOID)loadedFile,
 		strlen(loadedFile),
 		NULL,
@@ -149,14 +161,46 @@ bool Graphics::compileShader(ShaderInfo* shader)
 		NULL,
 		NULL,
 		&compiledShaderBlob,
-		&errorMessagesBlob ) ) )
+		&errorMessagesBlob);
+
+#ifdef DEBUG
+	if (FAILED(result))
+	{
+		if (errorMessagesBlob != NULL)
+		{
+			//use errorMessageBlob to print error
+		}
+
+		printf("PROBLEM: D3DCompile() failed.");
 		return false;
+	}
+#endif
+		
+	//if vertex shader
+	if (true)
+		//last parameter is to a ID3D11 VertexShader
+		result = mDev->CreateVertexShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, NULL);
+	else
+		mDev->CreatePixelShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, NULL);
+
 
 	//shader reflection code below
 
-	ID3D11ShaderReflection* shaderReflection = nullptr;
-	if(FAILED(result = D3DReflect(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**)&shaderReflection)));
+	
+	
 
+	ID3D11ShaderReflection* shaderReflection = nullptr;
+	result = D3DReflect(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**)&shaderReflection);
+
+#ifdef DEBUG
+	if (FAILED(result))
+	{
+		printf("PROBLEM: D3DReflect() failed.");
+		return false;
+	};
+#endif
+
+	//might use a ID3D11ShaderResourceView
 
 	return true;
 }

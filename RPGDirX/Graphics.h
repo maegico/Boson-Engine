@@ -8,6 +8,7 @@
 #include <string>
 #include "ShaderHandler.h"
 
+#define DEBUG
 #define RELEASEMACRO(x) { if(x) { x->Release(); x = 0; } }
 
 //include the library files
@@ -30,19 +31,19 @@ public:
 
 private:
 	//a bool to tell whether vsync is enabled
-	bool m_Vsync_enabled;
+	bool mVsync_enabled;
 	//an int to store the amount of dedicated video memory
-	int m_VideoCardMemory;
+	int mVideoCardMemory;
 	//??
-	char m_VideoCardDesc[128];
+	char mVideoCardDesc[128];
 	//pointer to swap chain interface
-	IDXGISwapChain* m_SwapChain;
+	IDXGISwapChain* mSwapChain;
 	//pointer to Direct3D device interface
-	ID3D11Device* m_Dev;
+	ID3D11Device* mDev;
 	//pointer to Direct3D device context
-	ID3D11DeviceContext* m_DevCon;
+	ID3D11DeviceContext* mDevCon;
 	//a pointer to the render target
-	ID3D11RenderTargetView* m_BackBuffer;
+	ID3D11RenderTargetView* mBackBuffer;
 
 	//bool loadShader(ShaderInfo shaderInfo);
 	bool compileShader(ShaderInfo* shader);
