@@ -162,4 +162,3 @@ bool Graphics::compileShader(ShaderInfo* shader)
 }
 
 //http://stackoverflow.com/questions/27220/how-to-convert-stdstring-to-lpcwstr-in-c-unicode
-//going to go through this more indepth
