@@ -177,12 +177,17 @@ bool Graphics::compileShader(ShaderInfo* shader)
 #endif
 		
 	//if vertex shader
-	if (true)
+	if (strcmp(shader->shaderType, "VShader") == 0)
+	{
 		//last parameter is to a ID3D11 VertexShader
 		result = mDev->CreateVertexShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, NULL);
-	else
-		mDev->CreatePixelShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, NULL);
-
+		//mDevCon->VSSetShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, );
+	}
+	else if (strcmp(shader->shaderType, "PShader") == 0)
+	{
+		result = mDev->CreatePixelShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, NULL);
+		//mDevCon->PSSetShader(compiledShaderBlob->GetBufferPointer(), compiledShaderBlob->GetBufferSize(), NULL, );
+	}
 
 	//shader reflection code below
 
