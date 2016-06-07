@@ -90,6 +90,7 @@
     <ClInclude Include="GameCore.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="MathR.h" />
     <ClInclude Include="ShaderHandler.h" />
     <ClInclude Include="WindowManager.h" />
